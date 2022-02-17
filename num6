@@ -1,0 +1,15 @@
+#!/bin/bash
+#$1 - file
+#$2 - directory
+#$3 - extension
+if [ $# -lt 3 ] 
+then
+  echo "Not enough parametrs: param1 - output file
+                              param2 - directory
+                              param3 - searching exension" >&2
+elif [ -d "$2" ]
+  then
+  find "$2" -type f -name "*.$3" | sort -d > "$1"
+else
+  echo "Error: $2 is not a directory" >&2
+fi
