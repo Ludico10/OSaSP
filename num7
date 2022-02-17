@@ -5,6 +5,9 @@ if [ $# -ne 2 ]
   then
   echo "Wrong parametrs: param1 - source file
                          param2 - name of .exe file" >&2
+elif [ ! -f "$1" ]
+then 
+  echo "Error: there is no file $1" 
 else 
   gcc "$1" -o "$2.exe"  && ./"$2.exe"
 fi
