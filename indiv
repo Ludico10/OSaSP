@@ -11,7 +11,13 @@ elif [ ! -d $2 ]
 then 
   echo "Error: $2 is not a directory" >&2
 else
-  find "$2" -user "$1" -type f -fprintf "$3" '%h\t%f\t%s\n'
-  echo -n "Number of watched files: "
-  find "$2" -type f | wc -l
+  if ! id "$1" &> /dev/null
+  then
+    echo 'Error: no username found' >&2
+  else
+    way="`realpath -e "$2"`"
+    find "$way" -type f -user "$1" -printf '%p\t%s\n' >"$3"
+    echo -n "Number of watched files: "
+    find "$2" -type f | wc -l
+  fi
 fi
